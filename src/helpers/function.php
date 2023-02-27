@@ -8,6 +8,22 @@ function debug($data, $die = false)
     }
 }
 
+function redirect ($http = false) 
+{
+    if ($http) {
+        $redirect = $http;
+    } else {
+        $redirect = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : PATH;
+    }
+    header("Location: {$redirect}");
+    die;
+}
+
+function base_url()
+{
+    return PATH . '/';
+}
+
 function get_inf_of_class($obj)
 {
     $reflect = new \ReflectionClass($obj);
@@ -15,3 +31,10 @@ function get_inf_of_class($obj)
     debug($reflect->getProperties());
     die;
 }
+
+function h($str)
+{
+    return htmlspecialchars($str);
+}
+
+

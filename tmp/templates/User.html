@@ -1,0 +1,46 @@
+<div id="content" class="site-content">
+    <div id="primary" class="content-area column full">
+        <main id="main" class="site-main">
+            <!-- .entry-header -->
+            <div class="entry-content">
+                <div class="wpcmsdev-columns">
+                    <div class="column column-width-one-half">
+
+                        <h4>Log in</h4>
+                        <form class="wpcf7" action="user/login" method="post" id="loginform">
+                            <div class="form">
+                                <p><input type="text" name="email" placeholder="E-mail Address *" value="{user_get_field_value key=email}"></p>
+                                <p><input type="password" name="password" placeholder="Password *"></p>
+                                <input type="submit" class="clearfix btn" value="Send">
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="column column-width-one-half">
+                        <h4>Register</h4>
+                        <form class="wpcf7" action="user/singup" method="post" id="registerform">
+                            <div class="form">
+                                <p><input type="text" name="name" placeholder="Name" value="{user_get_field_value key=name}"></p>
+                                <p><input type="text" name="nickname" placeholder="Nickname *" value="{user_get_field_value key=nickname}"></p>
+                                <p><input type="text" name="age" placeholder="Age" value="{user_get_field_value key=age}"></p>
+                                <p><input type="text" name="email" placeholder="E-mail Address *" value="{user_get_field_value key=email}"></p>
+                                <label for="password"><p style="font-size: 10px;">Passwords must contain: a minimum of 1 lower case letter, 
+                                    a minimum of 1 upper case letter, a minimum of 1 numeric character, a minimum of 1 special character (!#$%)</p></label>
+                                <p><input type="password" name="password" placeholder="Password *"></p>
+                                <input type="submit" class="clearfix btn" value="Send">
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- .entry-content -->
+
+        </main>
+        <!-- #main -->
+        </div>
+        <!-- #primary -->
+    </div>
+    <!-- #content -->
+</div>
+{user_delete_form_data}

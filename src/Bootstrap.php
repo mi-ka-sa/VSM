@@ -13,7 +13,7 @@ if (DEBUG !== 'production') {
         echo 'Todo: Friendly error page and send an email to the developer';
     });
 }
-// $whoops->register();
+$whoops->register();
 
 
 
@@ -21,7 +21,7 @@ if (DEBUG !== 'production') {
 /**
 * Dependency Injector
 */
-$injector = require_once(DEPENDENCIES);
+$injector = require_once(DEPENDENCIES . '/Dependencies.php');
 
 $request = $injector->make('Symfony\Component\HttpFoundation\Request');
 $response = $injector->make('Symfony\Component\HttpFoundation\Response');
@@ -33,7 +33,7 @@ $response = $injector->make('Symfony\Component\HttpFoundation\Response');
 * Router
 */
 $routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
-    $routes = require_once(ROUTES);
+    $routes = require_once(ROUTES . '/Routes.php');
     foreach ($routes as $route) {
         $r->addRoute($route[0], $route[1], $route[2]);
     }
@@ -41,16 +41,19 @@ $routeDefinitionCallback = function (\FastRoute\RouteCollector $r) {
 
 $dispatcher = \FastRoute\simpleDispatcher($routeDefinitionCallback);
 
+
+
 $routeInfo = $dispatcher->dispatch($request->server->get('REQUEST_METHOD'), $request->getPathInfo());
 switch ($routeInfo[0]) {
     case \FastRoute\Dispatcher::NOT_FOUND:
         $response->setContent('404 - Page not found');
         $response->setStatusCode(404);
-        break;
+        $response->send();
         break;
     case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $response->setContent('405 - Method not allowed');
         $response->setStatusCode(405);
+        $response->send();
         break;
     case \FastRoute\Dispatcher::FOUND:
         $className = $routeInfo[1][0];

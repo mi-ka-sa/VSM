@@ -1,0 +1,41 @@
+<body class="single single-product woocommerce woocommerce-page">
+    <div id="page">
+        <div class="container">
+            <header id="masthead" class="site-header">
+                <div class="site-branding">
+                    <h1 class="site-title"><a href="index.html" rel="home">Anime List</a></h1>
+                    <h2 class="site-description">What have you watched?</h2>
+                    <h4 class="site-description">Create your personalized list from tens of thousands of titles on the world’s largest anime and manga database. </h4>
+                </div>
+                <nav id="site-navigation" class="main-navigation">
+                    <button class="menu-toggle">Menu</button>
+                    <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+                    <div class="menu-menu-1-container">
+                        <ul id="menu-menu-1" class="menu">
+                            <li><a href="">Home</a></li>
+                            <li><a href="anime/catalog">Anime</a></li>
+                            <li><a href="manga/catalog">Manga</a></li>
+                            <li><a href="user"><span class="user-style-text"><i class="fa duotone fa-user"></i>
+                            {if isset($smarty.session.user)}
+                                {$smarty.session.user.nickname}
+                            {else}
+                                 User
+                            {/if}
+                            </span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- #masthead -->
+
+            {if !empty($smarty.session.success)}
+            <div class="user-succes">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                <strong>Done! </strong>{user_session_succes_out}
+            </div>
+            {/if} {if !empty($smarty.session.errors)}
+            <div class="user-errors">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">×</span>
+                <strong>Error! </strong>{user_session_errors_out}
+            </div>
+            {/if}

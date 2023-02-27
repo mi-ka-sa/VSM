@@ -1,0 +1,54 @@
+<div id="content" class="site-content">
+    <div id="primary" class="content-area column full">
+        <main id="main" class="site-main" role="main">
+            <div id="container">
+                <div id="content" role="main">
+                    <nav class="woocommerce-breadcrumb" itemprop="breadcrumb"><a href="#">Home</a> / <a href="#">Clothing</a> / Beige Jacket</nav>
+                    <div itemscope itemtype="http://schema.org/Product" class="product">
+                        <div class="images">
+                            <a href="" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto">
+                                <img src="{$data.item.img}"></img>
+                            </a>
+                        </div>
+                        <div class="summary entry-summary">
+                            <h1 itemprop="name" class="product_title entry-title">{$data.item.name}</h1>
+                            <h4 itemprop="name" class="product_title title ">{$data.item.name_alt}</h4>
+                            <div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i> ({$data.item.score})
+                            </div>
+                            <div itemprop="description">
+                                <blockquote>
+                                    <p>Type: {$data.item.type}</p>
+                                    <p>Episodes: {$data.item.episodes}</p>
+                                    <p>Rating: {$data.item.rating}</p>
+                                    <p>Aired: {$data.item.date_start} to {$data.item.date_end}</p>
+                                    <p>Studios: {$data.item.studios}</p>
+                                    <p>Duration: {$data.item.duration} min</p>
+                                    <p>Genges: {foreach from=$data.item.genre item=genre name=list} {if $smarty.foreach.list.last}
+                                        <a href="#" rel="tag">#{$genre}</a> {else}
+                                        <a href="#" rel="tag">#{$genre}</a>, {/if} {/foreach}
+                                    </p>
+                                </blockquote>
+                                <h4>Description</h4>
+                                <p>
+                                    {$data.item.synopsis}
+                                </p>
+
+
+                            </div>
+                        </div>
+                        <!-- .summary -->
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- #main -->
+    </div>
+    <!-- #primary -->
+</div>
+<!-- #content -->
+</div>

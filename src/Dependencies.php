@@ -18,5 +18,16 @@ $injector->share('Symfony\Component\HttpFoundation\Response');
 
 $injector->alias('App\Template\Renderer', 'App\Template\AppSmartyRenderer');
 
+$injector->define('App\Page\FilePageReader', [
+    ':pageFolder' => ROOT . '/pages',
+]);
+
+$injector->alias('App\Page\PageReader', 'App\Page\FilePageReader');
+$injector->share('App\Page\FilePageReader');
+
+$injector->share('PDO');
+$injector->define('PDO', require_once CONFIG . '/config_db.php');
+
+// $injector->share('App\Handlers\Anime');
 
 return $injector;
