@@ -1,0 +1,94 @@
+<div id="content" class="site-content">
+    <div id="primary" class="content-area column full">
+        <main id="main" class="site-main" role="main">
+            <div id="container">
+                <div id="content" role="main">
+                    <nav class="woocommerce-breadcrumb" itemprop="breadcrumb"><a href="#">Home</a> / <a href="#">Clothing</a> / Beige Jacket</nav>
+                    <div itemscope itemtype="http://schema.org/Product" class="product">
+                        <div class="images">
+                            <a href="" itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto">
+                                <img src="{$data.title.img}"></img>
+                            </a>
+                        </div>
+                        <div class="summary entry-summary">
+                            <h1 itemprop="name" class="product_title entry-title">{$data.title.name}</h1>
+                            <h4 itemprop="name" class="product_title title ">{$data.title.name_alt}</h4>
+                            <div id="score-div" class="woocommerce-product-rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            {if empty($data.title.score)}
+                                {for $i=1 to 10}
+                                    <i class="fa fa-star-o" data-value="{$i}" data-tid="{$data.title.id}"></i>
+                                {/for}
+                                (No score)
+                            {else}
+                                {for $i=1 to 10}
+                                    {if $i <= $data.title.score}
+                                        <i class="fa fa-star" data-value="{$i}" data-tid="{$data.title.id}"></i>
+                                    {elseif $i == ceil($data.title.score) && fmod($data.title.score, 1)}
+                                        <i class="fa fa-star-half-o" data-value="{$i}" data-tid="{$data.title.id}"></i>
+                                    {else}
+                                        <i class="fa fa-star-o" data-value="{$i}" data-tid="{$data.title.id}"></i>
+                                    {/if}
+                                {/for}
+                                ({$data.title.score}
+                                {if !empty($data.title.user_score)}
+                                    / <span style="color: green">My score: {$data.title.user_score}</span> 
+                                    <span class="delete-score" data-tid="{$data.title.id}">delete</span>
+                                {/if})
+                            {/if}
+                            </div> 
+                            <div itemprop="description">
+                                <blockquote>
+                                    {if $data.title.global_type == 'anime'}
+                                        <p>Type: {$data.title.type}</p>
+                                        <p>Episodes: {$data.title.episodes}</p>
+                                        <p>Rating: {$data.title.rating}</p>
+                                        <p>Aired: {$data.title.date_start} to {$data.title.date_end}</p>
+                                        <p>Studios: {$data.title.studios}</p>
+                                        <p>Duration: {$data.title.duration} min</p>
+                                        <p>Genges: 
+                                            {foreach from=$data.title.genre item=genre name=list} 
+                                                {if $smarty.foreach.list.last}
+                                                    <a href="#" rel="tag">#{$genre}</a> 
+                                                {else}
+                                                    <a href="#" rel="tag">#{$genre}</a>, 
+                                                {/if} 
+                                            {/foreach}
+                                        </p>
+                                    {else}
+                                        <p>Type: {$data.title.type}</p>
+                                        <p>Volumes: {$data.title.volumes}</p>
+                                        <p>Chapters: {$data.title.chapters}</p>
+                                        <p>Status: {$data.title.status}</p>
+                                        <p>Aired: {$data.title.date_start} to {$data.title.date_end}</p>
+                                        <p>Author (story): {$data.title.author_story}</p>
+                                        <p>Author (art): {$data.title.author_art}</p>
+                                        <p>Genges: 
+                                            {foreach from=$data.title.genre item=genre name=list} 
+                                                {if $smarty.foreach.list.last}
+                                                    <a href="#" rel="tag">#{$genre}</a> 
+                                                {else}
+                                                    <a href="#" rel="tag">#{$genre}</a>, 
+                                                {/if} 
+                                            {/foreach}
+                                    {/if}
+                                    
+                                </blockquote>
+                                <h4>Description</h4>
+                                <p>
+                                    {$data.title.synopsis}
+                                </p>
+
+
+                            </div>
+                        </div>
+                        <!-- .summary -->
+                    </div>
+                </div>
+            </div>
+        </main>
+        <!-- #main -->
+    </div>
+    <!-- #primary -->
+</div>
+<!-- #content -->
+</div>
