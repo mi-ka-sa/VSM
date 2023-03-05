@@ -17,13 +17,19 @@
             <ul class="products">
                 {if isset($data.db_data)} {foreach from=$data.db_data item=title name=list}
                 <li class="{user_first_last_item_in_row iteration=$smarty.foreach.list.iteration}product">
-                    <a href="{$title.type}/{$title.slug}">
+                    <a href="{$title.global_type}/{$title.slug}">
                             {if $title.new}
                                 <span class="onsale">New!</span>
                             {/if}
                             <img src="{$title.img}">
                             <h3>{(empty($title.name_alt)) ? $title.name : $title.name_alt} </h3>
-                            <span style="font-size: 8; color: grey;">{$title.type_type} / {$title.chapters} chap.</span>
+                            <span style="font-size: 8; color: grey;">{$title.type} / 
+                                {if $title.global_type == 'anime'}
+                                    {$title.episodes} epis. ~ {$title.duration} min.
+                                {else}
+                                    {$title.chapters} chap.
+                                {/if}
+                            </span>
                             <span class="price"><span class="amount">{$title.genre} </span></span>
                         </a>
                     <!-- <a href="#" class="button">Add to cart</a> -->

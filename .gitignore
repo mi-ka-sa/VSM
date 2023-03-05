@@ -1,4 +1,7 @@
 composer.lock
 /vendor
+/pages
+/src/Page
 /tmp/templates_c
 /public/uploads
+/src/ErrorHandler.php

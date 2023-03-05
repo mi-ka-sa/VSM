@@ -3274,3 +3274,17 @@ textarea.error {
 .closebtn:hover {
     color: black;
 }
+
+.woocommerce-product-rating .fa {
+    color: #FFD700;
+}
+
+.woocommerce-product-rating .fa:hover {
+    color: grey;
+}
+
+.delete-score {
+    font-size: small;
+    font-style: italic;
+    text-decoration: underline;
+}

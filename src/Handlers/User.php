@@ -32,7 +32,7 @@ class User extends App
         if (User::checkAuth()) {
             $this->renderer->display('UserCabinet');
         } else {
-            $this->renderer->display('User');
+            $this->renderer->display('RegisterForm');
         }
     }
 
@@ -55,7 +55,7 @@ class User extends App
         }
 
         $_SESSION['form_data'] = $data_user;
-        $this->renderer->display('User');
+        $this->renderer->display('RegisterForm');
     }
 
     public function singup()
@@ -82,12 +82,12 @@ class User extends App
                     redirect(base_url() . 'user');
                 } else {
                     $_SESSION['errors'] = 'Unexpected error, try later';
-                    $this->renderer->display('User');
+                    $this->renderer->display('RegisterForm');
                     die;
                 }
             } else {
                 $_SESSION['errors'] = 'The user with this email is already registered';
-                $this->renderer->display('User');
+                $this->renderer->display('RegisterForm');
                 die;
             }
             
@@ -95,7 +95,7 @@ class User extends App
         }
 
         $_SESSION['form_data'] = $data_user;
-        $this->renderer->display('User');
+        $this->renderer->display('RegisterForm');
     }
 
     public function logout()
