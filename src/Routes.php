@@ -14,4 +14,6 @@ return [
     ['POST', '/user/login', ['App\Handlers\User', 'login']],
     ['POST', '/user/singup', ['App\Handlers\User', 'singup']],
     ['GET', '/user/logout', ['App\Handlers\User', 'logout']],
+    ['POST', '/wishlist/{action}', ['App\Handlers\Wishlist', 'main']],
+    ['POST', '/review/add', ['App\Handlers\Review', 'add']],
 ];

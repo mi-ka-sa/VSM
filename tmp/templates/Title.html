@@ -35,6 +35,17 @@
                                     <span class="delete-score" data-tid="{$data.title.id}">delete</span>
                                 {/if})
                             {/if}
+                            {if isset($smarty.session.user)}
+                                {if empty($data.title.user_wishlist)}
+                                    <a class="button buttom-wishlist" data-action="add" data-tid="{$data.title.id}">Add to My WishList!</a>
+                                {elseif $data.title.user_wishlist == 'wish' && $data.title.global_type == 'anime'}
+                                    <a class="button buttom-wishlist" style="color: green" data-action="mark-as-done" data-tid="{$data.title.id}">In My WishList. Mark as viewed</a>
+                                {elseif $data.title.user_wishlist == 'wish' && $data.title.global_type == 'manga'}
+                                    <a class="button buttom-wishlist" style="color: green" data-action="mark-as-done" data-tid="{$data.title.id}">In My WishList. Mark as read</a>
+                                {else}
+                                    <a class="button buttom-wishlist" style="color: red" data-action="delete" data-tid="{$data.title.id}">Delete from my list</a>
+                                {/if}
+                            {/if}
                             </div> 
                             <div itemprop="description">
                                 <blockquote>
@@ -82,6 +93,72 @@
                             </div>
                         </div>
                         <!-- .summary -->
+                        <div class="woocommerce-tabs wc-tabs-wrapper">
+                            <div class="panel entry-content wc-tab" id="tab-reviews">
+                                <div id="reviews">
+                                    {if !empty($data.title.comments)}
+                                    <div id="comments">
+                                        <h2>{count($data.title.comments)} Reviews for {$data.title.name}</h2>
+                                        <ol class="commentlist">
+                                        {foreach from=$data.title.comments item=comment}
+                                            <li itemprop="review" itemscope="" itemtype="http://schema.org/Review" class="comment">
+                                            <div id="comment-3" class="comment_container">
+                                                <img alt="" src="" class="avatar avatar-60 photo" width="60" height="60">
+                                                <div class="comment-text">	
+                                                    <p class="meta">
+                                                    {if !empty($comment.rate)}
+                                                    <strong itemprop="author">Rate: {$comment.rate}</strong><br>
+                                                    {/if}
+                                                        <strong itemprop="author">Author: {$comment.nickname}</strong> – <time itemprop="datePublished">{$comment.date}</time>:
+                                                    </p>
+                                                    <div itemprop="description" class="description">
+                                                        <p>
+                                                            {$comment.comment}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </li>
+                                            <!-- #comment-## -->
+                                            {/foreach}
+                                        </ol>
+                                    </div>
+                                    {/if}
+                                    {if isset($smarty.session.user)}
+                                    <div id="review_form_wrapper">
+                                        <div id="review_form">
+                                            <div id="respond" class="comment-respond">
+                                                <h3 style="margin-bottom:10px;" id="reply-title" class="comment-reply-title">Add a review 
+                                                <small><a rel="nofollow" id="cancel-comment-reply-link" href="/demo-moschino/product/woo-logo-2/#respond" style="display:none;">Cancel reply</a></small></h3>
+                                                <form action="review/add" method="post" id="commentform1" class="comment-form" novalidate="">
+                                                    <p class="comment-form-rating">
+                                                        <label for="rating">Your Rating</label>
+                                                        <select name="rate" id="rating">
+                                                            <option value="0">Rate…</option>
+                                                            <option value="5">Perfect</option>
+                                                            <option value="4">Good</option>
+                                                            <option value="3">Average</option>
+                                                            <option value="2">Not that bad</option>
+                                                            <option value="1">Very Poor</option>
+                                                        </select>
+                                                    </p>
+                                                    <p class="comment-form-comment">
+                                                        <label for="comment">Your Review</label>
+                                                        <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true">{user_get_field_value key=comment}</textarea>
+                                                    </p>
+                                                    <p class="form-submit">
+                                                        <input type="submit" class="submit" value="Submit">
+                                                        <input type="hidden" name="id_titles" value="{$data.title.id}" id="comment_post_ID">															
+                                                    </p>
+                                                </form>
+                                            </div>
+                                            <!-- #respond -->
+                                        </div>
+                                    </div>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,3 +169,4 @@
 </div>
 <!-- #content -->
 </div>
+{user_delete_form_data}

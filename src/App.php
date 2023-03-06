@@ -29,4 +29,9 @@ abstract class App
         $this->db = $db;
         session_start();
     }
+
+    protected function getClass()
+    {
+        return static::class;
+    }
 }

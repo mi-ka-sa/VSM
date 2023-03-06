@@ -32,7 +32,9 @@
                             </span>
                             <span class="price"><span class="amount">{$title.genre} </span></span>
                         </a>
-                    <!-- <a href="#" class="button">Add to cart</a> -->
+                        {if isset($smarty.session.user)}
+                            <a class="button">Add to My WishList / {$title.user_wishlist}</a>
+                        {/if}
                 </li>
                 {/foreach} {else} No items!!! {/if}
             </ul>

@@ -29,4 +29,20 @@ jQuery(document).ready(function($) {
             },
         });
     });
+
+    $('#score-div').on('click', '.buttom-wishlist', function(e) {
+        const id = $(this).data('tid');
+        const action = $(this).data('action');
+        $.ajax({
+            url: 'wishlist/' + action,
+            type: 'POST',
+            data: { id: id },
+            success: function(res) {
+                location.reload();
+            },
+            error: function() {
+                alert('Error: not response from Controller');
+            },
+        });
+    });
 });

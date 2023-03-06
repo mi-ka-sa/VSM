@@ -3288,3 +3288,7 @@ textarea.error {
     font-style: italic;
     text-decoration: underline;
 }
+
+.products .button {
+    font-size: small;
+}

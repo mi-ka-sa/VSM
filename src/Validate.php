@@ -9,7 +9,7 @@ use Valitron\Validator;
 class Validate
 {
     private static array $data = [];
-    private static array $rules = [
+    public static array $rules = [
         'required' => ['nickname', 'email', 'password'],
         'email' => ['email'],
         'lengthBetween' => [
@@ -65,6 +65,12 @@ class Validate
         foreach (self::$data as $key => $val) {
             if (!in_array($key, $fields)) {
                 unset(self::$data[$key]);
+            }
+        }
+
+        foreach ($fields as $field) {
+            if (!array_key_exists($field, self::$data)) {
+                self::$data[$field] = '';
             }
         }
     }

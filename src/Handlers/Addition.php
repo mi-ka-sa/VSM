@@ -29,7 +29,7 @@ trait Addition
 
         $sth = $this->db->prepare("DELETE FROM titles_score
                                 WHERE id_titles = ? AND id_users = ?");
-        echo $sth->execute([$id_titles, $_SESSION['user']['id']]);
+        $sth->execute([$id_titles, $_SESSION['user']['id']]);
     }
 
     private function getTitle($slug_title, $name_table_add, ...$columns)
@@ -38,8 +38,11 @@ trait Addition
         $user_sql = '';
 
         if (isset($_SESSION['user'])) {
-            $add_sql = "ts.score AS user_score, ";
-            $user_sql = "LEFT JOIN titles_score ts ON ts.id_users = {$_SESSION['user']['id']} AND ts.id_titles = t.id";
+            $add_sql = "ts.score AS user_score, uw.status AS user_wishlist, ";
+            $user_sql = "LEFT JOIN titles_score ts 
+                        ON ts.id_users = {$_SESSION['user']['id']} AND ts.id_titles = t.id
+                        LEFT JOIN users_wishlist uw 
+                        ON uw.id_users = {$_SESSION['user']['id']} AND uw.id_titles = t.id";
         }
 
         foreach ($columns as $column) {
@@ -63,11 +66,21 @@ trait Addition
         
         $item = $sth->fetch();
 
+        
         if (empty($item)) {
             debug('No data in DB', 1);
         }
-
+        
         $item['genre'] = explode('|', $item['genre']);
+        
+        $sth = $this->db->prepare("SELECT tr.id_users, tr.rate, tr.comment, tr.date, u.nickname
+                            FROM titles_reviews tr
+                            JOIN users u
+                            ON u.id = tr.id_users
+                            WHERE tr.id_titles = :id
+                            ");
+        $sth->execute(['id' => $item['id']]);
+        $item['comments'] = $sth->fetchAll();
 
         return $item;
     }
@@ -75,6 +88,13 @@ trait Addition
     private function getAllTitles($name_table_add, ...$columns)
     {
         $add_sql = '';
+        $user_sql = '';
+
+        if (isset($_SESSION['user'])) {
+            $add_sql = "uw.status AS user_wishlist, ";
+            $user_sql = "LEFT JOIN users_wishlist uw 
+                        ON uw.id_users = {$_SESSION['user']['id']} AND uw.id_titles = t.id";
+        }
 
         foreach ($columns as $column) {
             $add_sql .= $name_table_add . "." . $column . ", ";
@@ -90,6 +110,7 @@ trait Addition
                                     ON t.id = tg.id_title
                                     JOIN genres g
                                     ON g.id = tg.id_genre
+                                    {$user_sql}
                                     WHERE t.display = 1
                                     GROUP BY tg.id_title");
         $items = $sth->fetchAll();
